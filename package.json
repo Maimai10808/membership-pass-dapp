@@ -1,0 +1,9 @@
+{
+  "name": "membership-pass-dapp",
+  "private": true,
+  "workspaces": [
+    "hardhat",
+    "web",
+    "packages/*"
+  ]
+}

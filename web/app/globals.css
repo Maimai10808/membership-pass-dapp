@@ -1,26 +1,225 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-sans:
+    "Inter", "SF Pro Display", "Segoe UI Variable Text", "Segoe UI",
+    "Helvetica Neue", "Arial", sans-serif;
+  --font-display:
+    "Inter Tight", "Inter", "SF Pro Display", "Segoe UI Variable Display",
+    "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+  --font-mono:
+    "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  --background: oklch(0.12 0.015 250);
+  --foreground: oklch(0.965 0.01 95);
+
+  --card: oklch(0.18 0.02 245);
+  --card-foreground: oklch(0.965 0.01 95);
+
+  --popover: oklch(0.18 0.02 245);
+  --popover-foreground: oklch(0.965 0.01 95);
+
+  --primary: oklch(0.72 0.145 63);
+  --primary-foreground: oklch(0.16 0.02 250);
+
+  --secondary: oklch(0.24 0.03 238);
+  --secondary-foreground: oklch(0.96 0.01 95);
+
+  --muted: oklch(0.22 0.02 240);
+  --muted-foreground: oklch(0.78 0.015 90);
+
+  --accent: oklch(0.26 0.05 195);
+  --accent-foreground: oklch(0.98 0.01 95);
+
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0.01 255);
+
+  --border: oklch(0.3 0.03 240);
+  --input: oklch(0.22 0.02 240);
+  --ring: oklch(0.72 0.145 63);
+
+  --radius: 1rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-display);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 17px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 14%, rgba(217, 119, 6, 0.22), transparent 20%),
+    radial-gradient(circle at 86% 12%, rgba(34, 197, 94, 0.12), transparent 18%),
+    radial-gradient(circle at 76% 72%, rgba(251, 191, 36, 0.1), transparent 26%),
+    linear-gradient(180deg, #05070c 0%, #0c1220 36%, #16181f 100%);
+  color: hsl(40 20% 96%);
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+input,
+textarea {
+  font-size: 0.98rem;
+}
+
+code {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: rgba(251, 191, 36, 0.28);
+  color: white;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .shell-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 248, 231, 0.08), rgba(255, 255, 255, 0.02)),
+      linear-gradient(145deg, rgba(11, 16, 29, 0.88), rgba(20, 23, 31, 0.82));
+    box-shadow:
+      0 28px 90px rgba(0, 0, 0, 0.42),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(28px);
+  }
+
+  .shell-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.09), transparent 42%),
+      radial-gradient(circle at top right, rgba(250, 204, 21, 0.14), transparent 24%);
+    opacity: 0.9;
+  }
+
+  .shell-panel::after {
+    content: "";
+    position: absolute;
+    inset: auto 1.25rem 0.9rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  .mesh-grid {
+    background-image:
+      linear-gradient(rgba(255, 248, 231, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 248, 231, 0.045) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.68), transparent 92%);
+  }
+
+  .glow-orb {
+    filter: blur(32px);
+    opacity: 0.7;
+  }
+
+  .section-kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .editorial-display {
+    font-family: var(--font-display), serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 0.96;
+  }
+
+  .data-chip {
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.045);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .control-surface {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02)),
+      rgba(3, 6, 13, 0.44);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .dashboard-stripe {
+    background-image: linear-gradient(
+      90deg,
+      rgba(251, 191, 36, 0) 0%,
+      rgba(251, 191, 36, 0.22) 22%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(16, 185, 129, 0.18) 78%,
+      rgba(16, 185, 129, 0) 100%
+    );
+  }
 }

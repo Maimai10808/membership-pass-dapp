@@ -1,5 +1,5 @@
-import Image from "next/image";
+import { MembershipDashboard } from "@/features/membership/screens/MembershipDashboard";
 
 export default function Home() {
-  return <div className=""></div>;
+  return <MembershipDashboard />;
 }
