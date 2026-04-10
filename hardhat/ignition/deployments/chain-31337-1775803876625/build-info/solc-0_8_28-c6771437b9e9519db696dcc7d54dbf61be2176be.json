@@ -1,0 +1,40 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-c6771437b9e9519db696dcc7d54dbf61be2176be",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "userSourceNameMap": {
+    "contracts/interfaces/IMembershipPass.sol": "project/contracts/interfaces/IMembershipPass.sol",
+    "contracts/MembershipPass.sol": "project/contracts/MembershipPass.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/interfaces/IMembershipPass.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.28;\n\ninterface IMembershipPass {\n    event MemberAdded(address indexed user, address indexed operator);\n    event MemberRemoved(address indexed user, address indexed operator);\n\n    function owner() external view returns (address);\n\n    function isMember(address user) external view returns (bool);\n\n    function getMembers() external view returns (address[] memory);\n\n    function getMemberCount() external view returns (uint256);\n\n    function addMember(address user) external;\n\n    function addMember(address[] calldata users) external;\n\n    function removeMember(address user) external;\n}\n"
+      },
+      "project/contracts/MembershipPass.sol": {
+        "content": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.28;\n\nimport {IMembershipPass} from \"./interfaces/IMembershipPass.sol\";\n\ncontract MembershipPass is IMembershipPass {\n    address public override owner;\n\n    mapping(address => bool) private whitelist;\n\n    address[] private members;\n    mapping(address => uint256) private memberIndexPlusOne;\n\n    modifier onlyOwner() {\n        require(msg.sender == owner, \"Only owner can call this function\");\n        _;\n    }\n\n    constructor() {\n        owner = msg.sender;\n    }\n\n    function isMember(address user) external view override returns (bool) {\n        require(user != address(0), \"Invalid address\");\n        return whitelist[user];\n    }\n\n    function getMembers() external view returns (address[] memory) {\n        return members;\n    }\n\n    function getMemberCount() external view returns (uint256) {\n        return members.length;\n    }\n\n    function addMember(address user) external override onlyOwner {\n        _addMember(user);\n    }\n\n    function addMember(address[] calldata users) external override onlyOwner {\n        require(users.length > 0, \"Empty input\");\n\n        for (uint256 i = 0; i < users.length; i++) {\n            _addMember(users[i]);\n        }\n    }\n\n    function removeMember(address user) external override onlyOwner {\n        require(user != address(0), \"Invalid address\");\n        require(whitelist[user], \"Not a member\");\n\n        whitelist[user] = false;\n\n        uint256 index = memberIndexPlusOne[user] - 1;\n        uint256 lastIndex = members.length - 1;\n\n        if (index != lastIndex) {\n            address lastMember = members[lastIndex];\n            members[index] = lastMember;\n            memberIndexPlusOne[lastMember] = index + 1;\n        }\n\n        members.pop();\n        delete memberIndexPlusOne[user];\n\n        emit MemberRemoved(user, msg.sender);\n    }\n\n    function _addMember(address user) internal {\n        require(user != address(0), \"Invalid address\");\n        require(!whitelist[user], \"Already a member\");\n\n        whitelist[user] = true;\n        members.push(user);\n        memberIndexPlusOne[user] = members.length;\n\n        emit MemberAdded(user, msg.sender);\n    }\n}\n"
+      }
+    }
+  }
+}

@@ -1,0 +1,153 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+:root {
+  --font-sans:
+    "Inter", "SF Pro Display", "Segoe UI Variable Text", "Segoe UI",
+    "Helvetica Neue", "Arial", sans-serif;
+  --font-display:
+    "Inter Tight", "Inter", "SF Pro Display", "Segoe UI Variable Display",
+    "Segoe UI", "Helvetica Neue", "Arial", sans-serif;
+  --font-mono:
+    "SFMono-Regular", "SF Mono", "IBM Plex Mono", "Menlo", monospace;
+  --background: oklch(0.978 0.012 95);
+  --foreground: oklch(0.28 0.03 240);
+
+  --card: oklch(0.995 0.006 95);
+  --card-foreground: oklch(0.28 0.03 240);
+
+  --popover: oklch(0.995 0.006 95);
+  --popover-foreground: oklch(0.28 0.03 240);
+
+  --primary: oklch(0.66 0.13 190);
+  --primary-foreground: oklch(0.99 0.01 95);
+
+  --secondary: oklch(0.94 0.028 196);
+  --secondary-foreground: oklch(0.34 0.035 228);
+
+  --muted: oklch(0.95 0.01 95);
+  --muted-foreground: oklch(0.52 0.026 230);
+
+  --accent: oklch(0.94 0.048 168);
+  --accent-foreground: oklch(0.32 0.04 184);
+
+  --destructive: oklch(0.64 0.19 22);
+  --destructive-foreground: oklch(0.99 0.01 255);
+
+  --border: oklch(0.88 0.018 225);
+  --input: oklch(0.985 0.005 95);
+  --ring: oklch(0.68 0.13 190);
+
+  --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-display);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 17px;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 8% 14%, rgba(14, 165, 233, 0.12), transparent 24%),
+    radial-gradient(circle at 88% 10%, rgba(20, 184, 166, 0.12), transparent 20%),
+    radial-gradient(circle at 78% 72%, rgba(251, 191, 36, 0.11), transparent 24%),
+    linear-gradient(180deg, #fbfaf4 0%, #f4f7f5 42%, #edf4f6 100%);
+  color: oklch(0.28 0.03 240);
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+input,
+textarea {
+  font-size: 0.98rem;
+}
+
+code {
+  font-family: var(--font-mono);
+}
+
+::selection {
+  background: rgba(14, 165, 233, 0.18);
+  color: #0f172a;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .section-kicker {
+    font-size: 0.72rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  .editorial-display {
+    font-family: var(--font-display), serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 0.96;
+  }
+}

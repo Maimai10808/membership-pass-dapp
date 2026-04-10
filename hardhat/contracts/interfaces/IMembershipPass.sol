@@ -2,8 +2,8 @@
 pragma solidity ^0.8.28;
 
 interface IMembershipPass {
-    event MemberAdded(address indexed member, address indexed operator);
-    event MemberRemoved(address indexed member, address indexed operator);
+    event MemberAdded(address indexed user, address indexed operator);
+    event MemberRemoved(address indexed user, address indexed operator);
 
     function owner() external view returns (address);
 

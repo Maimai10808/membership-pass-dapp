@@ -1,0 +1,12 @@
+{
+  "deploymentId": "chain-31337-1775804959133",
+  "chainId": 31337,
+  "networkName": "localhost",
+  "contracts": {
+    "membershipPass": {
+      "artifactName": "MembershipPass",
+      "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
+    }
+  },
+  "exportedAt": "2026-04-10T07:09:19.179Z"
+}

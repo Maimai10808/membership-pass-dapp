@@ -22,7 +22,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@membership-pass/contracts": ["../packages/membership-pass/src/index.ts"]
+      "@membership-pass/contracts": [
+        "../packages/membership-pass/src/index.ts"
+      ],
+      "@generated/*": ["../generated/*"]
     }
   },
   "include": [
